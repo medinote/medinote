@@ -43,17 +43,17 @@
   	<!-- 마이노트 -->
   
   	<!-- 내가 작성한 글 리스트 보기 -->
-  	<select id="mylist" parameterType="java.util.Map" resultMap="map1">  
+  	<select id="mylist" parameterType="java.util.Map" resultType="mybatis.vo.BbsVO">  
 		select * from (
 			select rownum r_num, a.* from (
-				select * from BBS_TB where DEL_FL = 0 order by IDX desc) a)
-					LEFT JOIN USER_TB b on writer = b.U_ID
-				where r_num between #{begin} and #{end}, u_id = #{u_id}
+				select * from bbs_tb where del_fl = 0 order by idx desc) a)
+					left join user_tb b on writer= b.u_id
+					where writer = #{writer} and r_num between #{begin} and #{end} 
 	</select>
 	
 	<!-- 내가 작성한 글의 총 개수 -->
 	<select id="myCommTotalCount" parameterType="String" resultType="int" >
-		select count(*) from bbs_tb where u_id = #{u_id} and del_fl = 0
+		select count(*) from bbs_tb where writer = #{writer} and del_fl = 0
 	</select>
 	
 
@@ -74,11 +74,4 @@
 			</choose>
 		</if>
 	</select>
-	
-	
-	
-	
-	
-	
-	
  </mapper>

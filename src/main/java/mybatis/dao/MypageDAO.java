@@ -31,6 +31,8 @@ public class MypageDAO {
 			list.toArray(ar);
 		}
 		
+		//System.out.println("도대체 뭐가 문제냐아아앙아"+u_id);
+		
 		return ar;
 	}
 	
@@ -44,9 +46,10 @@ public class MypageDAO {
 	 	return result;
 	}
 	
-	//최근 검색 내역 총 개수
+	//최근 검색 내역 총 개수 ***************
 	public int srchTagTotalCount(String u_id) {
 		int cnt = sst.selectOne("mypage.srchTagTotalCount", u_id);
+		//System.out.println("뭔가 문제여어어어어엉어어"+u_id);
 		return cnt;
 	}
 	
@@ -78,13 +81,15 @@ public class MypageDAO {
 	//마이노트
 	
 	//"내"가 커뮤니티에 작성한 글 보기
-	public BbsVO[] mylist(int begin, int end, String u_id) {
+	public BbsVO[] mylist(int begin, int end, String writer) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("begin", String.valueOf(begin));
 		map.put("end", String.valueOf(end));
-		map.put("u_id", u_id);
+		map.put("writer", writer);
 		
 		List<BbsVO> mylist = sst.selectList("mypage.mylist", map);
+		
+		System.out.println("해당 게시물을 쓴 사람은"+writer);
 		
 		BbsVO[] ar = null;
 		if(mylist != null && mylist.size() > 0) {
@@ -96,8 +101,9 @@ public class MypageDAO {
 	}
 	
 	//"내"가 작성한 총게시물 수
-	public int myCommTotalCount(String u_id) {
-		int cnt = sst.selectOne("mypage.myCommTotalCount", u_id);
+	public int myCommTotalCount(String writer) {
+		int cnt = sst.selectOne("mypage.myCommTotalCount", writer);
+		
 		return cnt;
 	}
 	

@@ -19,7 +19,8 @@ public class Paging {
 
 	// ↱JSP에서 표현할 페이징 HTML코드를 저장할 곳. (이전으로 다음으로 보이는 기능)
 	private StringBuffer sb;
-
+	private StringBuffer sb2;
+	private StringBuffer sb3;
 
 	// ↱기본 필요한 것들 생성자를 통해 저장하기 (현재페이지, 총게시물 수, 한 페이지에 표현할 게시물 수, 한 블럭당 표현할 페이지번호 수)
 	public Paging(int nowPage, int rowTotal, int blockList, int blockPage) {
@@ -116,6 +117,83 @@ public class Paging {
 		
 //		System.out.println("--------다음기능 활성 비활성 관련----------");
 //		System.out.println(sb.toString());
+		
+		//도량이가 쓸 페이징
+		sb2 = new StringBuffer("<ul class=\'pagination\' style=\'margin-left: 45%;\'>");
+		
+		if (isPrePage) { //이전기능 활성화 상태임 (즉 페이지블럭을 이전 페이지 블럭으로 이동가능한 상태)
+			sb2.append("<li class=\'page-item\'>");
+			sb2.append("<a class=\'page-link\' href='myPage?cPage=");
+			sb2.append(startPage - blockPage);
+			sb2.append("'>&laquo; </a></li>");
+			
+		}else {
+			sb2.append("<li class ='page-item disabled'><a class='page-link' href='#'> &laquo; </a></li>");
+		}
+		
+		for(int i= startPage; i<=endPage; i++) {
+			// i의 값이 현재페이지(nowPage)와 같을 때를 구별하여 css클래스를 적용하기!
+			if(i == nowPage) {
+				sb2.append("<li class='page-item disabled'><a class='page-link' href=javascript:;'>"); 
+				sb2.append(i);
+				sb2.append("</li>");
+			}else {
+				sb2.append("<li class='page-item'><a class='page-link' href='myPage?cPage=");
+				sb2.append(i);
+				sb2.append("'>");
+				sb2.append(i);  //위에 i는 표시가 안되므로 다시 한번적어줘야 함
+				sb2.append("</a></li>");
+			}
+		}
+		if (isNextPage) { //다음기능 활성화
+			sb2.append("<li class='page-item'><a class='page-link' href='myPage?cPage=");
+			// ↱만약 페이지가 6인 경우 6+5를 한거임
+			sb2.append(startPage + blockPage);
+			sb2.append("'>&raquo; </a></li>");
+			
+		}else { // 다음기능 비활성화 (즉 startPage가 1인 경우임 a태그 없음)
+			sb2.append("<li class ='page-item disabled'><a class='page-link' href='#'> &raquo; </a></li>");	
+		}
+		sb2.append("</ul>");
+		
+		//도량이가 쓸 페이징3
+
+		sb3 = new StringBuffer("<ul class=\'pagination\' style=\'margin-left: 45%;\'>");
+		
+		if (isPrePage) { //이전기능 활성화 상태임 (즉 페이지블럭을 이전 페이지 블럭으로 이동가능한 상태)
+			sb3.append("<li class=\'page-item\'>");
+			sb3.append("<a class=\'page-link\' href='myComm?cPage=");
+			sb3.append(startPage - blockPage);
+			sb3.append("'>&laquo; </a></li>");
+			
+		}else {
+			sb3.append("<li class ='page-item disabled'><a class='page-link' href='#'> &laquo; </a></li>");
+		}
+		
+		for(int i= startPage; i<=endPage; i++) {
+			// i의 값이 현재페이지(nowPage)와 같을 때를 구별하여 css클래스를 적용하기!
+			if(i == nowPage) {
+				sb3.append("<li class='page-item disabled'><a class='page-link' href=javascript:;'>"); 
+				sb3.append(i);
+				sb3.append("</li>");
+			}else {
+				sb3.append("<li class='page-item'><a class='page-link' href='myComm?cPage=");
+				sb3.append(i);
+				sb3.append("'>");
+				sb3.append(i);  //위에 i는 표시가 안되므로 다시 한번적어줘야 함
+				sb3.append("</a></li>");
+			}
+		}
+		if (isNextPage) { //다음기능 활성화
+			sb3.append("<li class='page-item'><a class='page-link' href='myComm?cPage=");
+			// ↱만약 페이지가 6인 경우 6+5를 한거임
+			sb3.append(startPage + blockPage);
+			sb3.append("'>&raquo; </a></li>");
+			
+		}else { // 다음기능 비활성화 (즉 startPage가 1인 경우임 a태그 없음)
+			sb3.append("<li class ='page-item disabled'><a class='page-link' href='#'> &raquo; </a></li>");	
+		}
+		sb3.append("</ul>");
 		
 	}
 
@@ -239,6 +317,22 @@ public class Paging {
 		this.sb = sb;
 	}
 	
+	public StringBuffer getSb2() {
+		return sb2;
+	}
+
+
+	public void setSb2(StringBuffer sb2) {
+		this.sb2 = sb2;
+	}
+	
+	public StringBuffer getSb3() {
+		return sb3;
+	}
+
+	public void setSb3(StringBuffer sb3) {
+		this.sb3 = sb3;
+	}
 	
 
 }

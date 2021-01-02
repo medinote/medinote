@@ -90,6 +90,7 @@ public class LoginController {
 		
 		//로그인 성공시 session에 저장
 		session.setAttribute("loginId", u_id);
+		session.setAttribute("loginPw", u_pw);
 		
 		//로그인 성공 여부(boolean) 반환
 		map.put("loginChk", result);

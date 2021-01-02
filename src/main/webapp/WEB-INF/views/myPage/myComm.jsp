@@ -62,6 +62,11 @@
 						    	</c:forEach>							
 						    </c:if>
 					    </tbody>
+					    <tfoot>
+							<tr>
+					            <td colspan="5">${pCode }</td>
+					        </tr>		
+						</tfoot>
 					</table>	
 				</div>
 			</div>
